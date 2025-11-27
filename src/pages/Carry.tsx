@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { mockRouteOffers } from "@/lib/mock-data";
 
 const Carry = () => {
   return (
@@ -22,7 +24,9 @@ const Carry = () => {
             </div>
             <span className="text-xl font-bold">Take2Earn</span>
           </div>
-          <div className="w-20"></div>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 
@@ -243,14 +247,56 @@ const Carry = () => {
           {/* Available Parcels Section */}
           <Card>
             <CardHeader>
-              <CardTitle>Available Parcels Near Your Route</CardTitle>
-              <CardDescription>Create an offer above to see matching parcels</CardDescription>
+              <CardTitle>Available Route Offers</CardTitle>
+              <CardDescription>Active carriers looking for parcels to carry</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="text-center py-12 text-muted-foreground">
-                <Plane className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                <p>No route offer created yet. Create one above to see available parcels.</p>
-              </div>
+            <CardContent className="space-y-4">
+              {mockRouteOffers.filter(offer => offer.status === 'active').map((offer) => (
+                <Card key={offer.id} className="bg-muted/50">
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary text-sm">
+                            {offer.carrier_name.split(' ').map(n => n[0]).join('')}
+                          </div>
+                          <div>
+                            <p className="font-semibold">{offer.carrier_name}</p>
+                            <p className="text-sm text-muted-foreground">Verified Carrier</p>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mt-3">
+                          <div>
+                            <p className="text-xs text-muted-foreground">Route</p>
+                            <p className="font-medium text-sm">{offer.origin_city} → {offer.destination_city}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Travel Dates</p>
+                            <p className="font-medium text-sm">{new Date(offer.departure_date).toLocaleDateString()}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Capacity</p>
+                            <p className="font-medium text-sm">{offer.capacity_kg} kg</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Price</p>
+                            <p className="font-medium text-sm">₹{offer.price_per_kg}/kg</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      {offer.accepts_fragile && (
+                        <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">Fragile OK</span>
+                      )}
+                      {offer.accepts_food && (
+                        <span className="px-2 py-1 bg-secondary/10 text-secondary text-xs rounded-full">Food OK</span>
+                      )}
+                    </div>
+                    <Button className="w-full mt-3" variant="outline">View Details</Button>
+                  </CardContent>
+                </Card>
+              ))}
             </CardContent>
           </Card>
         </div>
