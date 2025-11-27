@@ -1,0 +1,262 @@
+import { Link } from "react-router-dom";
+import { Plane, MapPin, ArrowLeft, Calendar, Briefcase, Star, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const Carry = () => {
+  return (
+    <div className="min-h-screen bg-muted/30">
+      {/* Header */}
+      <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2">
+            <ArrowLeft className="w-5 h-5" />
+            <span className="font-semibold">Back</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center">
+              <Plane className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold">Take2Earn</span>
+          </div>
+          <div className="w-20"></div>
+        </div>
+      </nav>
+
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Hero */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary mb-4">
+              <TrendingUp className="w-4 h-4" />
+              <span className="text-sm font-medium">Earn ₹200-500 per trip</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Earn by Carrying Parcels</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Already traveling? Make your journey profitable by carrying verified parcels along your route.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Offer Form */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Plane className="w-5 h-5 text-secondary" />
+                  Create Route Offer
+                </CardTitle>
+                <CardDescription>
+                  Tell us about your journey and we'll match you with parcels
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="origin">Origin City / Booth</Label>
+                  <Select>
+                    <SelectTrigger id="origin">
+                      <SelectValue placeholder="Where are you starting from?" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="delhi">New Delhi</SelectItem>
+                      <SelectItem value="mumbai">Mumbai</SelectItem>
+                      <SelectItem value="bangalore">Bangalore</SelectItem>
+                      <SelectItem value="kolkata">Kolkata</SelectItem>
+                      <SelectItem value="chennai">Chennai</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="destination">Destination City / Booth</Label>
+                  <Select>
+                    <SelectTrigger id="destination">
+                      <SelectValue placeholder="Where are you going?" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="mumbai">Mumbai</SelectItem>
+                      <SelectItem value="bangalore">Bangalore</SelectItem>
+                      <SelectItem value="kolkata">Kolkata</SelectItem>
+                      <SelectItem value="chennai">Chennai</SelectItem>
+                      <SelectItem value="pune">Pune</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="departure">Departure Date</Label>
+                    <Input id="departure" type="date" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="arrival">Arrival Date</Label>
+                    <Input id="arrival" type="date" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="capacity">Carrying Capacity (kg)</Label>
+                  <Select>
+                    <SelectTrigger id="capacity">
+                      <SelectValue placeholder="How much can you carry?" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1-5">1-5 kg</SelectItem>
+                      <SelectItem value="5-10">5-10 kg</SelectItem>
+                      <SelectItem value="10-20">10-20 kg</SelectItem>
+                      <SelectItem value="20+">20+ kg</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="price">Your Price per kg (₹)</Label>
+                  <Input id="price" type="number" placeholder="e.g., 30" />
+                  <p className="text-xs text-muted-foreground">Platform suggested: ₹25-40/kg</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Parcel Types You Accept</Label>
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="rounded" defaultChecked />
+                      <span className="text-sm">Documents & Light Items</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="rounded" defaultChecked />
+                      <span className="text-sm">Electronics</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="rounded" />
+                      <span className="text-sm">Fragile Items (requires extra care)</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="rounded" />
+                      <span className="text-sm">Food & Perishables</span>
+                    </label>
+                  </div>
+                </div>
+
+                <Button className="w-full" size="lg">
+                  <Plane className="w-4 h-4 mr-2" />
+                  Create Offer & Find Parcels
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Info & Benefits */}
+            <div className="space-y-6">
+              <Card className="bg-gradient-to-br from-secondary/10 to-secondary/5 border-secondary/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Star className="w-5 h-5 text-secondary" />
+                    Why Carry with Take2Earn?
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Earn Extra Income</h4>
+                      <p className="text-sm text-muted-foreground">Make ₹200-500 per trip on routes you're already taking</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Briefcase className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Flexible Schedule</h4>
+                      <p className="text-sm text-muted-foreground">Choose when and where you want to carry parcels</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-success/20 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-success" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Verified & Safe</h4>
+                      <p className="text-sm text-muted-foreground">All parcels verified at booths, photo proof required at every step</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>How Carrying Works</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">
+                      1
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Create Route Offer</h4>
+                      <p className="text-sm text-muted-foreground">Tell us your origin, destination, and capacity</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">
+                      2
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Get Matched with Parcels</h4>
+                      <p className="text-sm text-muted-foreground">We'll show you parcels along your route that match your capacity</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">
+                      3
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Pick Up at Origin Booth</h4>
+                      <p className="text-sm text-muted-foreground">Visit booth, verify parcel, take photo, and start journey</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">
+                      4
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Drop & Get Paid</h4>
+                      <p className="text-sm text-muted-foreground">Drop at destination booth, take photo, receiver confirms, you get paid!</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-primary-light border-primary/20">
+                <CardContent className="p-4">
+                  <p className="text-sm">
+                    <strong>KYC Required:</strong> To become a verified carrier, you'll need to complete KYC verification with government ID at a booth.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Available Parcels Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Available Parcels Near Your Route</CardTitle>
+              <CardDescription>Create an offer above to see matching parcels</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center py-12 text-muted-foreground">
+                <Plane className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <p>No route offer created yet. Create one above to see available parcels.</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Carry;
