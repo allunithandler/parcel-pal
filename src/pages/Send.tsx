@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Package, MapPin, Upload, ArrowLeft, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { mockBooths } from "@/lib/mock-data";
+import { useState } from "react";
 
 const Send = () => {
   const [step, setStep] = useState(1);
@@ -26,7 +28,9 @@ const Send = () => {
             </div>
             <span className="text-xl font-bold">Take2Earn</span>
           </div>
-          <div className="w-20"></div>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 
@@ -154,15 +158,16 @@ const Send = () => {
                           <SelectValue placeholder="Select pickup location" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="booth1">Connaught Place Hub - New Delhi</SelectItem>
-                          <SelectItem value="booth2">Indiranagar Station - Bangalore</SelectItem>
-                          <SelectItem value="booth3">Bandra West Booth - Mumbai</SelectItem>
-                          <SelectItem value="booth4">Park Street Center - Kolkata</SelectItem>
+                          {mockBooths.map(booth => (
+                            <SelectItem key={booth.id} value={booth.id}>
+                              {booth.name} - {booth.city}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <p className="text-sm text-muted-foreground flex items-center gap-1">
                         <MapPin className="w-4 h-4" />
-                        2.3 km away • Open 8 AM - 10 PM
+                        Nearest booth • {mockBooths[0]?.opening_hours}
                       </p>
                     </div>
 
@@ -173,10 +178,11 @@ const Send = () => {
                           <SelectValue placeholder="Select destination" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="booth5">MG Road Hub - Bangalore</SelectItem>
-                          <SelectItem value="booth6">Juhu Beach Booth - Mumbai</SelectItem>
-                          <SelectItem value="booth7">Salt Lake Booth - Kolkata</SelectItem>
-                          <SelectItem value="booth8">Nehru Place Center - Delhi</SelectItem>
+                          {mockBooths.map(booth => (
+                            <SelectItem key={booth.id} value={booth.id}>
+                              {booth.name} - {booth.city}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>

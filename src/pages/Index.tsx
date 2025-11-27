@@ -2,8 +2,15 @@ import { Link } from "react-router-dom";
 import { Package, Plane, MapPin, Shield, Star, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { mockBooths, mockParcels } from "@/lib/mock-data";
 
 const Index = () => {
+  // Get stats from mock data
+  const activeBooths = mockBooths.length;
+  const totalParcels = mockParcels.length;
+  const activeUsers = 10234; // Mock stat
+
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -19,6 +26,7 @@ const Index = () => {
             <Link to="/track">
               <Button variant="ghost">Track</Button>
             </Link>
+            <ThemeToggle />
             <Button variant="outline">Sign In</Button>
           </div>
         </div>
@@ -62,9 +70,9 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {[
-              { label: "Active Users", value: "10K+", icon: Star },
-              { label: "Parcels Delivered", value: "50K+", icon: Package },
-              { label: "Booth Locations", value: "500+", icon: MapPin },
+              { label: "Active Users", value: `${(activeUsers / 1000).toFixed(0)}K+`, icon: Star },
+              { label: "Parcels Delivered", value: `${totalParcels * 10}K+`, icon: Package },
+              { label: "Booth Locations", value: `${activeBooths * 100}+`, icon: MapPin },
               { label: "Avg. Earnings", value: "₹500/trip", icon: TrendingUp },
             ].map((stat, i) => (
               <div key={i} className="text-center animate-in fade-in slide-in-from-bottom duration-700" style={{ animationDelay: `${400 + i * 100}ms` }}>
