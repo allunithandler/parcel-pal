@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Package, CheckCircle, XCircle, Eye, BarChart3, ClipboardList, MapPin, AlertTriangle, TrendingUp, Users } from 'lucide-react';
+import { Package, CheckCircle, XCircle, Eye, BarChart3, ClipboardList, MapPin, AlertTriangle, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { NotificationPanel } from '@/components/NotificationPanel';
-import { mockParcels, mockBooths, mockTrips, getBoothById, type Parcel, type ParcelStatus } from '@/lib/mock-data';
+import { Navbar } from '@/components/Navbar';
+import { mockParcels, mockBooths, getBoothById, type ParcelStatus } from '@/lib/mock-data';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 import { BarChart, Bar, XAxis, YAxis, PieChart, Pie, Cell } from 'recharts';
 import { toast } from 'sonner';
@@ -53,21 +52,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Package className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">Take2Earn</span>
-            <Badge variant="outline" className="ml-2 text-xs">Admin</Badge>
-          </Link>
-          <div className="flex items-center gap-2">
-            <NotificationPanel />
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="container mx-auto px-4 py-8">
         {/* Booth info */}

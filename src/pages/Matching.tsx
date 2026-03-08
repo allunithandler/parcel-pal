@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Package, Truck, Star, Clock, IndianRupee, MapPin, CheckCircle, Search, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { NotificationPanel } from '@/components/NotificationPanel';
-import { mockParcels, mockBooths, getBoothById } from '@/lib/mock-data';
+import { Navbar } from '@/components/Navbar';
+import { mockParcels, getBoothById } from '@/lib/mock-data';
 import { matchCarriers, type MatchResult } from '@/lib/matching';
 import { toast } from 'sonner';
 
@@ -36,20 +34,7 @@ const Matching = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Package className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">Take2Earn</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <NotificationPanel />
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <h1 className="text-3xl font-bold mb-2">Carrier Matching</h1>
