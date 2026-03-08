@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { Package, Plane, MapPin, Shield, Star, TrendingUp } from "lucide-react";
+import { Package, Plane, MapPin, Shield, Star, TrendingUp, LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { NotificationPanel } from "@/components/NotificationPanel";
 import { mockBooths, mockParcels } from "@/lib/mock-data";
 
 const Index = () => {
@@ -22,12 +23,15 @@ const Index = () => {
             </div>
             <span className="text-xl font-bold">Take2Earn</span>
           </div>
-          <div className="flex items-center gap-4">
-            <Link to="/track">
-              <Button variant="ghost">Track</Button>
-            </Link>
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link to="/track"><Button variant="ghost" size="sm">Track</Button></Link>
+            <Link to="/booths"><Button variant="ghost" size="sm">Booths</Button></Link>
+            <Link to="/dashboard"><Button variant="ghost" size="sm">Dashboard</Button></Link>
+            <Link to="/matching"><Button variant="ghost" size="sm">Matching</Button></Link>
+            <Link to="/admin"><Button variant="ghost" size="sm">Admin</Button></Link>
+            <NotificationPanel />
             <ThemeToggle />
-            <Button variant="outline">Sign In</Button>
+            <Button variant="outline" size="sm">Sign In</Button>
           </div>
         </div>
       </nav>

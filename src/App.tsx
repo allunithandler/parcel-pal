@@ -8,6 +8,10 @@ import Index from "./pages/Index";
 import Send from "./pages/Send";
 import Carry from "./pages/Carry";
 import Track from "./pages/Track";
+import Booths from "./pages/Booths";
+import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
+import Matching from "./pages/Matching";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +28,10 @@ const App = () => (
             <Route path="/send" element={<Send />} />
             <Route path="/carry" element={<Carry />} />
             <Route path="/track" element={<Track />} />
+            <Route path="/booths" element={<Booths />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/matching" element={<Matching />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
