@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Package, CheckCircle, XCircle, Eye, BarChart3, ClipboardList, MapPin, AlertTriangle, TrendingUp, Users } from 'lucide-react';
+import { Package, CheckCircle, XCircle, Eye, BarChart3, ClipboardList, MapPin, AlertTriangle, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { NotificationPanel } from '@/components/NotificationPanel';
-import { mockParcels, mockBooths, mockTrips, getBoothById, type Parcel, type ParcelStatus } from '@/lib/mock-data';
+import { Navbar } from '@/components/Navbar';
+import { mockParcels, mockBooths, getBoothById, type ParcelStatus } from '@/lib/mock-data';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 import { BarChart, Bar, XAxis, YAxis, PieChart, Pie, Cell } from 'recharts';
 import { toast } from 'sonner';
