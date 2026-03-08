@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Package, Truck, Star, Clock, IndianRupee, MapPin, CheckCircle, Search, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { NotificationPanel } from '@/components/NotificationPanel';
-import { mockParcels, mockBooths, getBoothById } from '@/lib/mock-data';
+import { Navbar } from '@/components/Navbar';
+import { mockParcels, getBoothById } from '@/lib/mock-data';
 import { matchCarriers, type MatchResult } from '@/lib/matching';
+import { toast } from 'sonner';
 import { toast } from 'sonner';
 
 const Matching = () => {
