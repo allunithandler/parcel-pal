@@ -1,13 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { MapPin, Package, Clock, User, Search, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { NotificationPanel } from '@/components/NotificationPanel';
+import { Navbar } from '@/components/Navbar';
 import { mockBooths } from '@/lib/mock-data';
 
 const Booths = () => {
