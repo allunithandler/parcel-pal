@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { Package, Plane, MapPin, Shield, Star, TrendingUp } from "lucide-react";
+import { Package, Plane, MapPin, Shield, Star, TrendingUp, LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { NotificationPanel } from "@/components/NotificationPanel";
 import { mockBooths, mockParcels } from "@/lib/mock-data";
 
 const Index = () => {
