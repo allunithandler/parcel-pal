@@ -52,21 +52,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Package className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">Take2Earn</span>
-            <Badge variant="outline" className="ml-2 text-xs">Admin</Badge>
-          </Link>
-          <div className="flex items-center gap-2">
-            <NotificationPanel />
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="container mx-auto px-4 py-8">
         {/* Booth info */}
