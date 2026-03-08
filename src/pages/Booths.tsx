@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { MapPin, Package, Clock, User, Search, Navigation } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { MapPin, Clock, User, Search, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,33 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Navbar } from '@/components/Navbar';
 import { mockBooths } from '@/lib/mock-data';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Fix default marker icons
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
+
+const getMarkerIcon = (ratio: number) => {
+  const color = ratio > 0.7 ? '#ef4444' : ratio > 0.4 ? '#f59e0b' : '#22c55e';
+  return L.divIcon({
+    className: 'custom-marker',
+    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:bold;"></div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+};
+
+function FlyTo({ lat, lon }: { lat: number; lon: number }) {
+  const map = useMap();
+  useEffect(() => { map.flyTo([lat, lon], 12, { duration: 1 }); }, [lat, lon, map]);
+  return null;
+}
 
 const Booths = () => {
   const [search, setSearch] = useState('');
@@ -18,29 +45,23 @@ const Booths = () => {
     b.state.toLowerCase().includes(search.toLowerCase())
   );
 
+  const selected = mockBooths.find(b => b.id === selectedBooth);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Booth Directory</h1>
           <p className="text-muted-foreground">Find nearby booths for drop-off and pickup</p>
         </div>
 
-        {/* Search */}
         <div className="relative mb-6 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by name, city, or state..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="pl-10"
-          />
+          <Input placeholder="Search by name, city, or state..." value={search} onChange={e => setSearch(e.target.value)} className="pl-10" />
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Map Visual */}
           <div className="lg:col-span-2">
             <Card className="overflow-hidden">
               <CardHeader className="pb-2">
@@ -49,64 +70,45 @@ const Booths = () => {
                   Booth Locations
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                {/* SVG India map with booth markers */}
-                <div className="relative bg-muted/30 rounded-lg h-[500px] overflow-hidden">
-                  <svg viewBox="0 0 500 600" className="w-full h-full">
-                    {/* India outline simplified */}
-                    <path
-                      d="M200 50 L280 50 L320 80 L340 120 L350 180 L360 220 L380 260 L370 300 L350 340 L330 380 L310 420 L280 460 L260 500 L240 530 L220 540 L200 520 L180 480 L160 440 L140 400 L130 360 L120 320 L130 280 L140 240 L150 200 L160 160 L170 120 L180 80 Z"
-                      fill="hsl(var(--muted))"
-                      stroke="hsl(var(--border))"
-                      strokeWidth="2"
+              <CardContent className="p-0">
+                <div className="h-[500px]">
+                  <MapContainer center={[20.5937, 78.9629]} zoom={5} className="h-full w-full rounded-b-lg" scrollWheelZoom>
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {/* Booth markers */}
                     {filtered.map(booth => {
-                      // Map lat/lon to SVG coords (approximate)
-                      const x = ((booth.lon - 72) / (89 - 72)) * 300 + 100;
-                      const y = ((32 - booth.lat) / (32 - 8)) * 500 + 50;
-                      const isSelected = selectedBooth === booth.id;
-                      const capacityRatio = booth.current_parcels / booth.capacity;
+                      const ratio = booth.current_parcels / booth.capacity;
                       return (
-                        <g key={booth.id} onClick={() => setSelectedBooth(booth.id)} className="cursor-pointer">
-                          <circle
-                            cx={x} cy={y}
-                            r={isSelected ? 14 : 10}
-                            fill={capacityRatio > 0.7 ? 'hsl(var(--destructive))' : capacityRatio > 0.4 ? 'hsl(var(--secondary))' : 'hsl(var(--primary))'}
-                            opacity={isSelected ? 1 : 0.8}
-                            stroke="hsl(var(--background))"
-                            strokeWidth="2"
-                          />
-                          <circle cx={x} cy={y} r={isSelected ? 18 : 0} fill="none"
-                            stroke="hsl(var(--primary))" strokeWidth="2" opacity="0.4" />
-                          <text x={x} y={y + 4} textAnchor="middle" fontSize="8" fill="hsl(var(--primary-foreground))" fontWeight="bold">
-                            {booth.current_parcels}
-                          </text>
-                        </g>
+                        <Marker key={booth.id} position={[booth.lat, booth.lon]} icon={getMarkerIcon(ratio)}
+                          eventHandlers={{ click: () => setSelectedBooth(booth.id) }}>
+                          <Popup>
+                            <div className="text-sm font-semibold">{booth.name}</div>
+                            <div className="text-xs">{booth.city}, {booth.state}</div>
+                            <div className="text-xs mt-1">{booth.current_parcels}/{booth.capacity} parcels</div>
+                          </Popup>
+                        </Marker>
                       );
                     })}
-                  </svg>
-                  {/* Legend */}
-                  <div className="absolute bottom-4 left-4 flex gap-3 text-xs">
-                    <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-primary" /> Low</span>
-                    <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-secondary" /> Medium</span>
-                    <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-destructive" /> High</span>
-                  </div>
+                    {selected && <FlyTo lat={selected.lat} lon={selected.lon} />}
+                  </MapContainer>
+                </div>
+                <div className="px-4 py-2 flex gap-3 text-xs border-t">
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-green-500" /> Available</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-amber-500" /> Moderate</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500" /> Busy</span>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Booth List */}
           <div className="space-y-4 max-h-[600px] overflow-y-auto pr-1">
             {filtered.map(booth => {
               const ratio = booth.current_parcels / booth.capacity;
               return (
-                <Card
-                  key={booth.id}
+                <Card key={booth.id}
                   className={`cursor-pointer transition-all hover:shadow-md ${selectedBooth === booth.id ? 'ring-2 ring-primary' : ''}`}
-                  onClick={() => setSelectedBooth(booth.id)}
-                >
+                  onClick={() => setSelectedBooth(booth.id)}>
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="font-semibold text-sm">{booth.name}</h3>
