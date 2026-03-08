@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Package, TrendingUp, Truck, MapPin, IndianRupee, Clock, Star, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Package, TrendingUp, Truck, IndianRupee, Star, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { NotificationPanel } from '@/components/NotificationPanel';
-import { mockParcels, mockTrips, mockBooths, getBoothById } from '@/lib/mock-data';
+import { Navbar } from '@/components/Navbar';
+import { mockParcels, getBoothById } from '@/lib/mock-data';
 import {
   ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig,
 } from '@/components/ui/chart';
