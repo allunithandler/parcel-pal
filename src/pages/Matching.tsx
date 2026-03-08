@@ -9,7 +9,6 @@ import { Navbar } from '@/components/Navbar';
 import { mockParcels, getBoothById } from '@/lib/mock-data';
 import { matchCarriers, type MatchResult } from '@/lib/matching';
 import { toast } from 'sonner';
-import { toast } from 'sonner';
 
 const Matching = () => {
   const [selectedParcel, setSelectedParcel] = useState('');
