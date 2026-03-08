@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
-import { Package, MapPin, ArrowLeft, Search, Clock, CheckCircle2, Truck } from "lucide-react";
+import { Package, MapPin, Search, Clock, CheckCircle2, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { Navbar } from "@/components/Navbar";
 import { getParcelByTrackingCode, getTripByParcelId, getBoothById } from "@/lib/mock-data";
 import { useState } from "react";
 
@@ -22,24 +21,7 @@ const Track = () => {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      {/* Header */}
-      <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-semibold">Back</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Package className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">Take2Earn</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto">

@@ -13,27 +13,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Package className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">Take2Earn</span>
-          </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <Link to="/track"><Button variant="ghost" size="sm">Track</Button></Link>
-            <Link to="/booths"><Button variant="ghost" size="sm">Booths</Button></Link>
-            <Link to="/dashboard"><Button variant="ghost" size="sm">Dashboard</Button></Link>
-            <Link to="/matching"><Button variant="ghost" size="sm">Matching</Button></Link>
-            <Link to="/admin"><Button variant="ghost" size="sm">Admin</Button></Link>
-            <NotificationPanel />
-            <ThemeToggle />
-            <Button variant="outline" size="sm">Sign In</Button>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-secondary py-20 md:py-32">
