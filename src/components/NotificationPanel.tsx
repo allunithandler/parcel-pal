@@ -41,10 +41,11 @@ export function NotificationPanel() {
   const [unread, setUnread] = useState(getUnreadCount());
 
   useEffect(() => {
-    return subscribe((ns) => {
+    const unsub = subscribe((ns) => {
       setNotifications(ns);
       setUnread(ns.filter(n => !n.read).length);
     });
+    return () => { unsub(); };
   }, []);
 
   return (

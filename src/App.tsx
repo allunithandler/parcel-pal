@@ -8,6 +8,10 @@ import Index from "./pages/Index";
 import Send from "./pages/Send";
 import Carry from "./pages/Carry";
 import Track from "./pages/Track";
+import Booths from "./pages/Booths";
+import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
+import Matching from "./pages/Matching";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
